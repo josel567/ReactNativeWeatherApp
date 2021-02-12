@@ -3,7 +3,7 @@ import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 
 import {Weather} from './components/Weather';
-import {API_KEY} from './utils/WeatherApiKey';
+import {OPENWEATHER_API_KEY, GOOGLE_API_KEY} from './utils/ApiKeys';
 import * as Font from 'expo-font';
 
 export default class App extends React.Component {
@@ -36,7 +36,7 @@ export default class App extends React.Component {
   fetchWeather(lat = 25, lon = 25): void {
 
     fetch(
-        `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${API_KEY}&units=metric`
+        `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${OPENWEATHER_API_KEY}&units=metric`
   )
         .then(res => res.json())
         .then(json => {
@@ -50,7 +50,7 @@ export default class App extends React.Component {
 
   async getCityName(lat: number, long: number): Promise<void> {
 
-    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyAzBTxwUtCzJz1lmfQT7Wb9-_0usN682cs`);
+    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${GOOGLE_API_KEY}`);
     const jsonAddress = await response.json();
 
     this.setState({
